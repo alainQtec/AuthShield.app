@@ -1,44 +1,44 @@
-# OktaGuardian
+# authShield
 
-OktaGuardian is a secure and reliable web application designed to help you conceal your Okta API key and access Okta resources securely. By using OktaGuardian, you can ensure that your API key remains protected and not exposed in your scripts or applications.
+authShield is a secure and reliable web application designed to help you conceal your Okta API key and access Okta resources securely. By using authShield, you can ensure that your API key remains protected and not exposed in your scripts or applications.
 
 ## Features
 
-- **Secure API Key Storage**: OktaGuardian securely stores your Okta API key as an environment variable on a trusted machine, reducing the risk of unauthorized access.
+- **Secure API Key Storage**: authShield securely stores your Okta API key as an environment variable on a trusted machine, reducing the risk of unauthorized access.
 
 - **Proxy Authentication**: The web application acts as a proxy, handling Okta API requests on your behalf, and returning the results to your scripts or applications.
 
-- **User Access Control**: Restrict access to the machine hosting OktaGuardian to trusted individuals, ensuring the security of your Okta integration.
+- **User Access Control**: Restrict access to the machine hosting authShield to trusted individuals, ensuring the security of your Okta integration.
 
 ## Getting Started
 
-To get started with OktaGuardian, follow these steps:
+To get started with authShield, follow these steps:
 
 1. Clone this repository to your local machine.
    
    ```bash
-   git clone https://github.com/yourusername/oktaguardian.git
+   git clone https://github.com/yourusername/authShield.git
    ```
 
 2. Install the necessary dependencies for the web application.
 
    ```bash
-   cd oktaguardian
+   cd authShield
    npm install
    ```
    
-4. Configure your Okta API credentials in the environment variables on the machine where OktaGuardian is hosted.
+4. Configure your Okta API credentials in the environment variables on the machine where authShield is hosted.
    
    ```bash
    export OKTA_API_KEY=your_api_key_here
    ```
    
-6. Start the OktaGuardian web app.
+6. Start the authShield web app.
 
    ```bash
    npm start
    ```
-Your OktaGuardian instance is now ready to accept API requests from your scripts or applications.
+Your authShield instance is now ready to accept API requests from your scripts or applications.
 
 ## Usage
 
@@ -46,7 +46,7 @@ In your PowerShell or other scripts:
 
 ```PowerShell
 $userId = "your_user_id"
-$webAppUrl = "https://oktaguardian.vercel.app/api/endpoint"
+$webAppUrl = "https://authShield.vercel.app/api/endpoint"
 
 $response = Invoke-RestMethod -Uri $webAppUrl -Method Get -Headers @{ "Authorization" = "Bearer MY_TOKEN" }
 
