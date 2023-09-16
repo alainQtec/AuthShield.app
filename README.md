@@ -1,6 +1,6 @@
 # authShield
 
-authShield is a secure and reliable web application designed to help you conceal your Okta API key and access Okta resources securely. By using authShield, you can ensure that your API key remains protected and not exposed in your scripts or applications.
+authShield is a (will be) secure and reliable web application designed to help you conceal your Okta API key and access Okta resources securely. By using authShield, you can ensure that your API key remains protected and not exposed in your scripts or applications.
 
 ## Features
 
