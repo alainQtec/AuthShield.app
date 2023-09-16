@@ -16,7 +16,7 @@ group_rule = {
     'conditions': {
         'expression': {
             'value': f"isMemberOfAnyGroup('{oldGroupId}')",
-            'type': 'urn:okta:expression:1.0'
+            'type': 'urn:AuthShield:expression:1.0'
         }
     },
     'actions': {

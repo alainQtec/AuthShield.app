@@ -1,11 +1,11 @@
 """
-Export Okta groups, apps, and app groups to csv.
-https://github.com/gabrielsroka/okta_api/blob/master/okta_to_csv.py
+Export AuthShield groups, apps, and app groups to csv.
+https://github.com/gabrielsroka/AuthShield_api/blob/master/AuthShield_to_csv.py
 
-1. run the Python to export Okta to csv files
+1. run the Python to export AuthShield to csv files
 2. run the SQLite commands using the sqlite3 CLI [0] to create the db, import the csv files, run the query, and create output csv
 
-$ sqlite3 -csv -header okta.db
+$ sqlite3 -csv -header AuthShield.db
 -- import csv files (only need to do this one time)
 .import apps.csv apps
 .import groups.csv groups
@@ -35,7 +35,7 @@ from datetime import datetime
 import time
 
 # Set these:
-org_url = 'https://ORG.okta.com'
+org_url = 'https://ORG.AuthShield.com'
 token = '...'
 LIMIT_REMAINING = 10
 

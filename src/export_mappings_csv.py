@@ -2,7 +2,7 @@ import requests # pip install requests
 import csv
 
 # Set these:
-org_url = 'https://EXAMPLE.okta.com'
+org_url = 'https://EXAMPLE.AuthShield.com'
 token = '...'
 filename = 'mappings.csv'
 

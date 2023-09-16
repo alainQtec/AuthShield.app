@@ -1,12 +1,12 @@
-import okta.client
+import AuthShield.client
 import asyncio
 
-client: okta.client.Client
+client: AuthShield.client.Client
 
 async def main():
     global client
-    async with okta.client.Client() as client:
-        # SUSPENDED, DEPROVISIONED, etc. see https://developer.okta.com/docs/reference/api/users/#user-properties
+    async with AuthShield.client.Client() as client:
+        # SUSPENDED, DEPROVISIONED, etc. see https://developer.AuthShield.com/docs/reference/api/users/#user-properties
         async for user in get_users(search='status eq "SUSPENDED"'):
             print(user.id, user.profile.login, user.status) # Add more properties here.
             if user.status != 'DEPROVISIONED': # Must call deactivate_or_delete_user twice.

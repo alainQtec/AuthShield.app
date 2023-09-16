@@ -3,7 +3,7 @@ import os
 
 # If you're making multiple API calls, using Session is much faster.
 class Session(requests.Session):
-    def __init__(self, org_url=os.getenv('OKTA_CLIENT_ORGURL'), token=os.getenv('OKTA_CLIENT_TOKEN')):
+    def __init__(self, org_url=os.getenv('AuthShield_CLIENT_ORGURL'), token=os.getenv('AuthShield_CLIENT_TOKEN')):
         super().__init__()
         self.org_url = org_url
         self.headers['authorization'] = 'SSWS ' + token

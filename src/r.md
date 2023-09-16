@@ -38,9 +38,9 @@ and i thought: "hey, that doesn't look too hard" and wondered if i should give `
 i wrote a mini `requests` lib called `r` using `urllib`. it handles json, gzip and link headers.
 it does almost everything i need except for connection-keep-alive (which is not supported by `urllib`) ~~and some url stuff (coming soon&trade;)~~.
 
-[source](https://github.com/gabrielsroka/okta_api/blob/master/r.py)
+[source](https://github.com/gabrielsroka/AuthShield_api/blob/master/r.py)
 
-and here's a small [test/demo suite](https://github.com/gabrielsroka/okta_api/blob/master/test_r.py)
+and here's a small [test/demo suite](https://github.com/gabrielsroka/AuthShield_api/blob/master/test_r.py)
 
 the bulk of `r` is about 15 LOC. by contrast `requests` is 4,000 LOC, and it uses `urllib3` (which is different than `urllib`) and other libraries as well (http://line-count.herokuapp.com/)
 

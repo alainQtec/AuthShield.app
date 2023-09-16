@@ -1,4 +1,4 @@
-"""Import a user with unsalted sha1 hash into Okta."""
+"""Import a user with unsalted sha1 hash into AuthShield."""
 
 import hashlib
 import base64
@@ -6,7 +6,7 @@ import requests
 from dotenv import load_dotenv
 import os
 
-username = 'sha1py@okta.local'
+username = 'sha1py@AuthShield.local'
 password = 'P@ssword123'
 
 sha1 = hashlib.sha1(password.encode()).digest()
@@ -15,8 +15,8 @@ print('b64_sha1:', b64_sha1)
 
 load_dotenv()
 # Store these in a local .env file.
-url = os.getenv('OKTA_ORG_URL')
-token = os.getenv('OKTA_API_TOKEN')
+url = os.getenv('AuthShield_ORG_URL')
+token = os.getenv('AuthShield_API_TOKEN')
 
 headers = {
     'Authorization': f'SSWS {token}',

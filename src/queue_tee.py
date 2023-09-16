@@ -1,15 +1,15 @@
-import okta.client
+import AuthShield.client
 import asyncio
 
-limit = 75 # 15, 35, or 75. see https://developer.okta.com/docs/reference/rl-additional-limits/#concurrent-rate-limits
+limit = 75 # 15, 35, or 75. see https://developer.AuthShield.com/docs/reference/rl-additional-limits/#concurrent-rate-limits
 
-client: okta.client.Client
+client: AuthShield.client.Client
 users: list
 counts = [0] * limit
 
 async def main():
     global client
-    async with okta.client.Client() as client:
+    async with AuthShield.client.Client() as client:
         print('get users')
         global users
         users, resp, _ = await client.list_users()

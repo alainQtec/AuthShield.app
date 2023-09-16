@@ -1,9 +1,9 @@
-"""Call Okta APIs using Session (cookies) and xsrfToken -- just like a browser. SSWS API Token is not needed.
+"""Call AuthShield APIs using Session (cookies) and xsrfToken -- just like a browser. SSWS API Token is not needed.
 
-### CAUTION: Code to call private APIs is not supported by Okta. The APIs can change at any time.
-###          Test in a dev or oktapreview tenant before trying this in production.
+### CAUTION: Code to call private APIs is not supported by AuthShield. The APIs can change at any time.
+###          Test in a dev or AuthShieldpreview tenant before trying this in production.
 
-This will work with users who have Push MFA. This won't work if Apps > Apps > "Okta Admin Console" > Sign On Policy > MFA is enabled.
+This will work with users who have Push MFA. This won't work if Apps > Apps > "AuthShield Admin Console" > Sign On Policy > MFA is enabled.
 """
 
 import requests
@@ -12,10 +12,10 @@ import time
 import re
 
 # Set these:
-okta_url = 'https://ORG.okta.com'
+AuthShield_url = 'https://ORG.AuthShield.com'
 username = '...'
 
-okta_admin_url = okta_url.replace('.', '-admin.', 1)
+AuthShield_admin_url = AuthShield_url.replace('.', '-admin.', 1)
 
 # A session uses cookies and reuses the HTTP connection.
 session = requests.Session()
@@ -28,12 +28,12 @@ def main():
     get_user_factors(user['id'])
 
 def sign_in():
-    print('Okta URL:', okta_url)
+    print('AuthShield URL:', AuthShield_url)
     print('Username:', username)
     password = getpass.getpass()
 
     print('Signing in...')
-    response = session.post(okta_url + '/api/v1/authn', json={'username': username, 'password': password})
+    response = session.post(AuthShield_url + '/api/v1/authn', json={'username': username, 'password': password})
     authn = response.json()
     if not response.ok:
         print(authn['errorSummary'])
@@ -44,7 +44,7 @@ def sign_in():
     else:
         token = authn['sessionToken']
 
-    session.get(okta_url + '/login/sessionCookie?token=' + token)
+    session.get(AuthShield_url + '/login/sessionCookie?token=' + token)
 
 def send_push(factors, state_token):
     print('Push MFA...')
@@ -66,18 +66,18 @@ def send_push(factors, state_token):
             exit()
 
 def admin_sign_in():
-    response = session.get(okta_url + '/home/admin-entry')
+    response = session.get(AuthShield_url + '/home/admin-entry')
 
     # old style
     match = re.search(r'"token":\["(.*)"\]', response.text)
     if match:
         body = {'token': match.group(1)}
-        response = session.post(okta_admin_url + '/admin/sso/request', data=body)
+        response = session.post(AuthShield_admin_url + '/admin/sso/request', data=body)
 
     # new style (w/ new OIDC flow)
     match = re.search(r'<span.* id="_xsrfToken">(.*)</span>', response.text)
     if not match:
-        print('admin_sign_in: token not found. Go to Apps > Apps > "Okta Admin Console" > Sign On Policy and disable MFA.')
+        print('admin_sign_in: token not found. Go to Apps > Apps > "AuthShield Admin Console" > Sign On Policy and disable MFA.')
         exit()
     admin_xsrf_token = match.group(1)
     return admin_xsrf_token
@@ -89,19 +89,19 @@ def send_notification(admin_xsrf_token, userid):
         'users': [userid],
         'groups': []
     }
-    headers = {'X-Okta-XsrfToken': admin_xsrf_token}
-    notification = session.post(okta_admin_url + '/api/internal/admin/notification', json=body, headers=headers).json()
+    headers = {'X-AuthShield-XsrfToken': admin_xsrf_token}
+    notification = session.post(AuthShield_admin_url + '/api/internal/admin/notification', json=body, headers=headers).json()
     print('\nNotification:')
     print(notification)
 
 def get_user(userid):
-    user = session.get(okta_url + '/api/v1/users/' + userid).json()
+    user = session.get(AuthShield_url + '/api/v1/users/' + userid).json()
     print('\nUser:')
     print(user)
     return user
 
 def get_user_factors(userid):
-    factors = session.get(okta_url +'/api/v1/users/' + userid + '/factors').json()
+    factors = session.get(AuthShield_url +'/api/v1/users/' + userid + '/factors').json()
     print('\nFactors:')
     print(factors)
 

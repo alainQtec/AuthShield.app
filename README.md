@@ -1,14 +1,14 @@
 # authShield
 
-authShield is a (will be) secure and reliable web application designed to help you conceal your Okta API key and access Okta resources securely. By using authShield, you can ensure that your API key remains protected and not exposed in your scripts or applications.
+authShield is a (will be) secure and reliable web application designed to help you conceal your AuthShield API key and access AuthShield resources securely. By using authShield, you can ensure that your API key remains protected and not exposed in your scripts or applications.
 
 ## Features
 
-- **Secure API Key Storage**: authShield securely stores your Okta API key as an environment variable on a trusted machine, reducing the risk of unauthorized access.
+- **Secure API Key Storage**: authShield securely stores your AuthShield API key as an environment variable on a trusted machine, reducing the risk of unauthorized access.
 
-- **Proxy Authentication**: The web application acts as a proxy, handling Okta API requests on your behalf, and returning the results to your scripts or applications.
+- **Proxy Authentication**: The web application acts as a proxy, handling AuthShield API requests on your behalf, and returning the results to your scripts or applications.
 
-- **User Access Control**: Restrict access to the machine hosting authShield to trusted individuals, ensuring the security of your Okta integration.
+- **User Access Control**: Restrict access to the machine hosting authShield to trusted individuals, ensuring the security of your AuthShield integration.
 
 ## Getting Started
 
@@ -27,10 +27,10 @@ To get started with authShield, follow these steps:
    npm install
    ```
    
-4. Configure your Okta API credentials in the environment variables on the machine where authShield is hosted.
+4. Configure your AuthShield API credentials in the environment variables on the machine where authShield is hosted.
    
    ```bash
-   export OKTA_API_KEY=your_api_key_here
+   export AuthShield_API_KEY=your_api_key_here
    ```
    
 6. Start the authShield web app.

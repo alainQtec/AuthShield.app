@@ -1,5 +1,5 @@
-# okta_api
-Call Okta API from Python (unofficial, see https://github.com/okta/okta-sdk-python/ for the official Okta Python SDK).
+# AuthShield_api
+Call AuthShield API from Python (unofficial, see https://github.com/AuthShield/AuthShield-sdk-python/ for the official AuthShield Python SDK).
 
 Requires Python 3.6 or greater.
 
@@ -8,6 +8,6 @@ pip install requests # or pip3
 pip install python-dotenv
 
 cat > .env
-OKTA_ORG_URL=https://XXX.okta.com
-OKTA_API_TOKEN=XXX
+AuthShield_ORG_URL=https://XXX.AuthShield.com
+AuthShield_API_TOKEN=XXX
 ```

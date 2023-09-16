@@ -1,21 +1,21 @@
-import okta_api
+import AuthShield_api
 import time
 
 def test_push():
-    user_id = okta_api.get_user('me').json()['id']
-    factors = okta_api.get_user_factors(user_id).json()
+    user_id = AuthShield_api.get_user('me').json()['id']
+    factors = AuthShield_api.get_user_factors(user_id).json()
     push_factors = [f for f in factors if f['factorType'] == 'push']
     if not push_factors:
         print('Push factor not found')
         return
-    transaction = okta_api.issue_user_factor_challenge(user_id, push_factors[0]['id']).json()
+    transaction = AuthShield_api.issue_user_factor_challenge(user_id, push_factors[0]['id']).json()
     print('Sent push')
     while True:
         result = transaction['factorResult']
         print(result)
         if result == 'WAITING':
             time.sleep(4) # 4 seconds
-            transaction = okta_api.session.get(transaction['_links']['poll']['href']).json()
+            transaction = AuthShield_api.session.get(transaction['_links']['poll']['href']).json()
         elif result in ['SUCCESS', 'REJECTED', 'TIMEOUT']:
             return
 
@@ -23,7 +23,7 @@ def export_users():
     # Export to CSV.
     print('Getting users.')
     users = []
-    for page in okta_api.get_user_pages(): # filter='profile.lastName eq "Doe"', limit=2
+    for page in AuthShield_api.get_user_pages(): # filter='profile.lastName eq "Doe"', limit=2
         for user in page.json():
             users.append({
                 'id': user['id'], 
@@ -33,15 +33,15 @@ def export_users():
         print('Total users found:', len(users))
 
     if users:
-        okta_api.export_csv('users.csv', users, users[0].keys())
+        AuthShield_api.export_csv('users.csv', users, users[0].keys())
 
 def export_users_and_factors():
     # Export to CSV.
     print('Getting users.')
     users = []
-    for page in okta_api.get_user_pages(): # filter='profile.lastName eq "Doe"'): # limit=2
+    for page in AuthShield_api.get_user_pages(): # filter='profile.lastName eq "Doe"'): # limit=2
         for user in page.json():
-            factors = okta_api.get_user_factors(user['id']).json()
+            factors = AuthShield_api.get_user_factors(user['id']).json()
             webauthn_factors = [f['profile']['authenticatorName'] or 'N/A' for f in factors if f['factorType'] == 'webauthn' and 'profile' in f]
             users.append({
                 'id': user['id'], 
@@ -52,33 +52,33 @@ def export_users_and_factors():
         print('Total users found:', len(users))
 
     if users:
-        okta_api.export_csv('users.csv', users, users[0].keys())
+        AuthShield_api.export_csv('users.csv', users, users[0].keys())
 
 def get_schemas():
-    for page in okta_api.get_app_pages():
+    for page in AuthShield_api.get_app_pages():
         for app in page.json():
-            r = okta_api.get_app_schema(app['id'])
+            r = AuthShield_api.get_app_schema(app['id'])
             if r.ok: # Skip bookmark apps, etc.
                 schema = r.json()
                 print(app['id'], app['label'], schema['definitions']['custom'])
 
 def get_app_groups(app):
     LIMIT_REMAINING = 10
-    for page in okta_api.get_app_group_pages(app['id'], expand='group'):
+    for page in AuthShield_api.get_app_group_pages(app['id'], expand='group'):
         groups = page.json()
         for group in groups:
             app_groups.append({'app': app['label'], 'group': group['_embedded']['group']['profile']['name']})
         if not groups:
             app_groups.append({'app': app['label'], 'group': '(no groups)'})
-        okta_api.snooze(page, LIMIT_REMAINING)
+        AuthShield_api.snooze(page, LIMIT_REMAINING)
 
 app_groups = []
 def get_apps_and_groups():
-    for page in okta_api.get_app_pages():
+    for page in AuthShield_api.get_app_pages():
         for app in page.json():
             print('fetching', app['label'])
             get_app_groups(app)
-    okta_api.export_csv('app_groups.csv', app_groups, app_groups[0].keys())
+    AuthShield_api.export_csv('app_groups.csv', app_groups, app_groups[0].keys())
 
 
 
@@ -87,12 +87,12 @@ def get_apps_and_groups():
 #     print('Getting users.')
 #     keys = ['id', 'profile.login','profile.email']
 #     users = []
-#     for page in okta_api.get_user_pages(): # filter='profile.lastName eq "Doe"', limit=2
+#     for page in AuthShield_api.get_user_pages(): # filter='profile.lastName eq "Doe"', limit=2
 #         users.extend(pluck(page.json(), keys)) # [{key: reduce(getitem, key.split('.'), user) for key in keys} for user in users]
 #         print('Total users found:', len(users))
 
 #     if users:
-#         okta_api.export_csv('users.csv', users, keys)
+#         AuthShield_api.export_csv('users.csv', users, keys)
 
 # def pluck(items, keys):
 #     new_list = []
@@ -111,8 +111,8 @@ def get_apps_and_groups():
 
 # old style
 
-# page = okta_api.get_users() # limit=2, filter='profile.lastName eq "Doe"'
+# page = AuthShield_api.get_users() # limit=2, filter='profile.lastName eq "Doe"'
 # while page:
 #     for user in page.json():
 #         print(user['id'], user['profile']['login'])
-#     page = okta_api.get_next_page(page.links)
+#     page = AuthShield_api.get_next_page(page.links)

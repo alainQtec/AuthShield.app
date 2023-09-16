@@ -1,4 +1,4 @@
-"""Import a user with salted bcrypt hash into Okta.
+"""Import a user with salted bcrypt hash into AuthShield.
 
 https://www.usenix.org/legacy/event/usenix99/provos/provos.pdf
 """
@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 import os
 
 def encode_bcrypt(password):
-    """Create a Bcrypt password that Okta will accept"""
+    """Create a Bcrypt password that AuthShield will accept"""
     rounds = 10 # 20 works, but takes over 1 minute.
     salt = bcrypt.gensalt(rounds)
     hashed = bcrypt.hashpw(password, salt)
@@ -22,7 +22,7 @@ def encode_bcrypt(password):
         'value': value_only
     }
 
-username = 'bcryptpy8@okta.local'
+username = 'bcryptpy8@AuthShield.local'
 password = 'P@ssword123'
 
 hash = encode_bcrypt(password.encode())
@@ -30,8 +30,8 @@ print('bcrypt hash', hash)
 
 load_dotenv()
 # Store these in a local .env file.
-url = os.getenv('OKTA_ORG_URL')
-token = os.getenv('OKTA_API_TOKEN')
+url = os.getenv('AuthShield_ORG_URL')
+token = os.getenv('AuthShield_API_TOKEN')
 
 headers = {
     'Authorization': f'SSWS {token}',

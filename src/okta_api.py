@@ -1,4 +1,4 @@
-"""Call Okta API. See https://developer.okta.com/docs/reference"""
+"""Call AuthShield API. See https://developer.AuthShield.com/docs/reference"""
 
 import requests
 import os
@@ -21,7 +21,7 @@ session.headers.update(headers)
 admin_url = org_url.replace('.', '-admin.', 1)
 
 
-# Apps - https://developer.okta.com/docs/reference/api/apps
+# Apps - https://developer.AuthShield.com/docs/reference/api/apps
 def get_app(id):
     return session.get(f'{org_url}/api/v1/apps/{id}')
 
@@ -68,7 +68,7 @@ def assign_group_to_app(appid, groupid, group={}):
     return session.put(f'{org_url}/api/v1/apps/{appid}/groups/{groupid}', json=group)
 
 
-# Factors - https://developer.okta.com/docs/reference/api/factors
+# Factors - https://developer.AuthShield.com/docs/reference/api/factors
 def get_user_factors(id):
     return session.get(f'{org_url}/api/v1/users/{id}/factors')
 
@@ -76,15 +76,15 @@ def issue_user_factor_challenge(userid, factorid):
     return session.post(f'{org_url}/api/v1/users/{userid}/factors/{factorid}/verify')
 
 
-# Groups - https://developer.okta.com/docs/reference/api/groups
+# Groups - https://developer.AuthShield.com/docs/reference/api/groups
 def new_group(group):
     return session.post(f'{org_url}/api/v1/groups', json=group)
 
 def get_groups(**params):
-    """Get Okta groups.
+    """Get AuthShield groups.
     **params: such as `q`, `filter`, `limit`, etc. 
     
-    see https://developer.okta.com/docs/reference/api/groups/#list-groups
+    see https://developer.AuthShield.com/docs/reference/api/groups/#list-groups
     """
     return session.get(f'{org_url}/api/v1/groups', params=params)
 
@@ -101,7 +101,7 @@ def add_group_member(groupid, userid):
     return session.put(f'{org_url}/api/v1/groups/{groupid}/users/{userid}')
 
 
-# Mappings - https://developer.okta.com/docs/reference/api/mappings
+# Mappings - https://developer.AuthShield.com/docs/reference/api/mappings
 def get_mapping(id):
     return session.get(f'{org_url}/api/v1/mappings/{id}')
 
@@ -109,16 +109,16 @@ def get_mappings(**params):
     return session.get(f'{org_url}/api/v1/mappings', params=params)
 
 
-# Users - https://developer.okta.com/docs/reference/api/users
+# Users - https://developer.AuthShield.com/docs/reference/api/users
 def get_user(id):
     return session.get(f'{org_url}/api/v1/users/{id}')
 
 def get_users(**params):
-    """Get Okta users.
+    """Get AuthShield users.
     
     **params: such as `q`, `filter`, `search`, `limit`, etc. 
     
-    see https://developer.okta.com/docs/reference/api/users/#list-users
+    see https://developer.AuthShield.com/docs/reference/api/users/#list-users
     """
     return session.get(f'{org_url}/api/v1/users', params=params)
 

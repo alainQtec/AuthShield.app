@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-"""Export Okta apps and groups to json."""
+"""Export AuthShield apps and groups to json."""
 
 import requests
 import json
@@ -59,7 +59,7 @@ fetch_sub(f'{org_url}/api/v1/apps?limit=200', 'apps', 'groups')
 
 
 """
-$ sqlite3 -csv -header okta.db
+$ sqlite3 -csv -header AuthShield.db
 -- import csv files (only need to do this one time)
 .import apps.csv apps
 .import groups.csv groups
@@ -83,7 +83,7 @@ where apps.label like 'logfood%';
 create view v_app_groups as select ...
 
 -- json
-$ sqlite3 -header okta.db
+$ sqlite3 -header AuthShield.db
 .import groups.json groups_j
 select json->>'id' from groups_j;
 

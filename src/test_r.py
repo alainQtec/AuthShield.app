@@ -2,9 +2,9 @@ import r
 import json
 
 # Set these:
-with open('okta.yaml') as f: # in JSON format: {"okta":{"client":{"orgUrl":"...","token":"..."}}}
-    config = json.load(f)['okta']['client']
-    base_url = config['orgUrl'] # eg 'https://gsroka.oktapreview.com'
+with open('AuthShield.yaml') as f: # in JSON format: {"AuthShield":{"client":{"orgUrl":"...","token":"..."}}}
+    config = json.load(f)['AuthShield']['client']
+    base_url = config['orgUrl'] # eg 'https://gsroka.AuthShieldpreview.com'
 
 group_id = '...'
 

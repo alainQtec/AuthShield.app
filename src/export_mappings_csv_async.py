@@ -8,8 +8,8 @@ from datetime import datetime
 load_dotenv()
 
 # Store these in a local .env file.
-url = os.getenv('OKTA_ORG_URL')
-token = os.getenv('OKTA_API_TOKEN')
+url = os.getenv('AuthShield_ORG_URL')
+token = os.getenv('AuthShield_API_TOKEN')
 limit = 75 # Concurrent rate limits are 15, 35, or 75.
 LIMIT_REMAINING = 75
 
